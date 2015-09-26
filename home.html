@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- AngularJS 1.5.4 -->
+    <!-- <script src="bootstrap/js/angular.min.js"></script> -->
+    <script src="bootstrap/js/angular.js"></script>
+    <script src="bootstrap/js/angular-resource.min.js"></script>
+    <script src="bootstrap/js/angular-touch.js"></script>
+    <script src="bootstrap/js/angular-animate.js"></script>
+    <script src="bootstrap/js/angular-route.min.js"></script>
+    <script src="bootstrap/js/angular-cookies.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/ObjectPath.js"></script>
+    <script src="bootstrap/js/tv4.min.js"></script>
+    <script src="bootstrap/js/schema-form.js"></script>
+    <script src="bootstrap/js/bootstrap-decorator.js"></script>
+    <!--ngToast -->
+    <link rel="stylesheet" href="bootstrap/css/ngToast.min.css">
+    <link rel="stylesheet" href="bootstrap/css/ngToast-animations.min.css">
+    <script src="bootstrap/js/angular-sanitize.min.js"></script>
+    <script src="bootstrap/js/ngToast.min.js"></script>
+
+  </head>
+  <body class="hold-transition login-page" ng-app="app">
+    <!-- angular templating -->
+    <!-- this is where content will be injected -->
+    <div ng-view></div>
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="plugins/iCheck/icheck.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+    </script>
+    <script src="js/services/flash.service.js"></script>
+    <script src="config.js"></script>
+    <script src="js/services/authentication.service.js"></script>
+    <script src="js/services/user.service.js"></script>
+
+    <script src="js/controllers/login/login.controller.js"></script>
+    <script src="js/controllers/register/register.controller.js"></script>
+  </body>
+</html>

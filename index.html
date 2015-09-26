@@ -1,0 +1,73 @@
+<html ng-app="app">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Admin sacos</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Adminsacos | Registration Page</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.5 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <!-- AngularJS 1.5.4 -->
+  <!-- <script src="bootstrap/js/angular.min.js"></script> -->
+  <script src="bootstrap/js/angular.js"></script>
+  <script src="bootstrap/js/angular-resource.min.js"></script>
+  <script src="bootstrap/js/angular-touch.js"></script>
+  <script src="bootstrap/js/angular-animate.js"></script>
+  <!-- Bootstrap 3.3.5 -->
+  <script src="bootstrap/js/ui-bootstrap-tpls.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="bootstrap/js/ObjectPath.js"></script>
+  <script src="bootstrap/js/tv4.min.js"></script>
+  <script src="bootstrap/js/schema-form.js"></script>
+  <script src="`/js/bootstrap-decorator.js"></script>
+  <!--ngToast -->
+  <link rel="stylesheet" href="bootstrap/css/ngToast.min.css">
+  <link rel="stylesheet" href="bootstrap/css/ngToast-animations.min.css">
+  <script src="bootstrap/js/angular-sanitize.min.js"></script>
+  <script src="bootstrap/js/ngToast.min.js"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <link href="app-content/app.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <div class="col-sm-8 col-sm-offset-2">
+        <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+        <div ng-view></div>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <!-- AngularJS 1.5.4 -->
+  <script src="bootstrap/js/angular.js"></script>
+  <script src="bootstrap/js/angular-resource.min.js"></script>
+  <script src="bootstrap/js/angular-route.min.js"></script>
+  <script src="bootstrap/js/angular-cookies.js"></script>
+  <script src="app.js"></script>
+  <script src="app-services/authentication.service.js"></script>
+  <script src="app-services/flash.service.js"></script>
+  <!-- Real user service that uses an api -->
+  <!-- <script src="app-services/user.service.js"></script> -->
+  <!-- Fake user service for demo that uses local storage -->
+  <script src="app-services/user.service.local-storage.js"></script>
+  <script src="home/home.controller.js"></script>
+  <script src="login/login.controller.js"></script>
+  <script src="register/register.controller.js"></script>
+</body>
+
+</html>

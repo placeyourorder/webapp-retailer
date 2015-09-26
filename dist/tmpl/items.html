@@ -1,0 +1,15 @@
+<div ng-controller="itemActionsController">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-xs-6">
+        <button type="button" class="btn btn-info btn-lg pull-left" style="display: block; width: 100%;" ng-click="addItem()">Add Items</button>
+      </div>
+      <div class="col-xs-6">
+        <button type="button" class="btn btn-info btn-lg pull-right" style="display: block; width: 100%;" ng-click="searchItem()">Search Items</button>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div ui-grid="gridOptions" class="grid" ui-grid-pinning ui-grid-expandable ui-grid-pagination class="grid"></div>
+  </section>
+</div>

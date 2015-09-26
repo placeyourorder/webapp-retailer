@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html ng-app="regApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adminsacos | Registration Page</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+    <!-- jQuery 2.1.4 -->
+    <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- AngularJS 1.5.4 -->
+    <!-- <script src="bootstrap/js/angular.min.js"></script> -->
+    <script src="../bootstrap/js/angular.js"></script>
+    <script src="../bootstrap/js/angular-resource.min.js"></script>
+    <script src="../bootstrap/js/angular-touch.js"></script>
+    <script src="../bootstrap/js/angular-animate.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../bootstrap/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/js/ObjectPath.js"></script>
+    <script src="../bootstrap/js/tv4.min.js"></script>
+    <script src="../bootstrap/js/schema-form.js"></script>
+    <script src="../bootstrap/js/bootstrap-decorator.js"></script>
+    <!--ngToast -->
+    <link rel="stylesheet" href="../bootstrap/css/ngToast.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/ngToast-animations.min.css">
+    <script src="../bootstrap/js/angular-sanitize.min.js"></script>
+    <script src="../bootstrap/js/ngToast.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="hold-transition register-page">
+    <div class="register-box">
+      <div class="register-logo">
+        <b>Admin</b>sacos
+      </div>
+
+      <div class="register-box-body">
+        <p class="login-box-msg">Register</p>
+        <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+        <form action="../../index.html" method="post" ng-submit="vm.register()">
+          <div class="form-group has-feedback" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+            <input type="text" class="form-control" placeholder="Full name" ng-model="vm.user.fullName">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="email" class="form-control" placeholder="Email" ng-model="vm.user.email">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Password" ng-model="vm.user.password">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Retype password" ng-model="vm.user.repPassword">
+            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">
+              <div class="checkbox icheck">
+                <label>
+                  <input type="checkbox"> I agree to the <a href="#">terms</a>
+                </label>
+              </div>
+            </div><!-- /.col -->
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="form.$invalid || vm.dataLoading">Register</button>
+              <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div><!-- /.col -->
+          </div>
+        </form>
+
+
+        <a href="login.html" class="text-center">I already have a membership</a>
+      </div><!-- /.form-box -->
+    </div><!-- /.register-box -->
+
+    <!-- iCheck -->
+    <script src="../plugins/iCheck/icheck.min.js"></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+      regApp = angular.module('regApp', ['ngTouch', 'ngToast', 'ui.bootstrap']);
+    </script>
+  </body>
+</html>
