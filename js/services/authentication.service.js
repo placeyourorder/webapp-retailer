@@ -11,9 +11,12 @@
     var service = {};
 
     service.Login = Login;
+    service.Logout = Logout;
     service.SetCredentials = SetCredentials;
     service.ClearCredentials = ClearCredentials;
     service.isAuthenticated = isAuthenticated;
+    service.SetStoreContext = SetStoreContext;
+    service.ClearStoreContext = ClearStoreContext;
 
     return service;
 
@@ -24,32 +27,57 @@
         })
         .then(function(response) {
           callback(response);
+        }).catch(function(response) {
+          callback(response);
         });
     }
 
-    function SetCredentials(email, password) {
-      var authdata = Base64.encode(email + ':' + password);
+    function Logout(callback) {
+      $http.get(config().baseUrl + '/users/logout')
+        .then(function(response) {
+          callback(response);
+        });
+    }
+
+    function SetCredentials(user) {
+      //var authdata = Base64.encode(email + ':' + password);
 
       $rootScope.globals = {
-        currentUser: {
-          email: email,
-          authdata: authdata
-        }
+        currentUser: user
       };
 
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+      //$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
       $cookieStore.put('globals', $rootScope.globals);
     }
 
     function ClearCredentials() {
       $rootScope.globals = {};
       $cookieStore.remove('globals');
-      $http.defaults.headers.common.Authorization = 'Basic ';
     }
 
     function isAuthenticated() {
       $http.get(config().baseUrl + '/testauth', {})
         .then(function(response) {});
+    }
+
+    function SetStoreContext(callback) {
+      $http.post(config().baseUrl + '/stores/search', {
+          retailer: $rootScope.globals.currentUser._id
+        })
+        .then(function(response) {
+          if (response.data && response.data[0]) {
+            $rootScope.globals['storeId'] = response.data[0]._id;
+            $cookieStore.put('globals', $rootScope.globals);
+          }
+          callback();
+        }).catch(function() {
+          callback()
+        });
+    }
+
+    function ClearStoreContext() {
+      $rootScope.globals['storeId'] = null;
+      $cookieStore.put('globals');
     }
   }
 

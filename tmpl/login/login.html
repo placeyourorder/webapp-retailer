@@ -1,3 +1,4 @@
+
 <div class="login-box">
   <div class="login-logo">
     <b>Admin</b>sacos
@@ -5,6 +6,7 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
     <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
     <form name="form" ng-submit="vm.login()" role="form">
       <div class="form-group has-feedback" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">

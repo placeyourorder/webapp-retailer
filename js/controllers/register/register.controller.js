@@ -1,8 +1,8 @@
 /* 
  * @Author: renjithks
  * @Date:   2015-09-24 01:37:58
- * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-26 19:05:04
+ * @Last Modified by:   Renjith Sasidharan
+ * @Last Modified time: 2015-09-29 01:41:41
  */
 
 (function() {
@@ -28,17 +28,15 @@
         return;
       }
       vm.user.type = 'RETAILER';
-      UserService.Create(vm.user)
-        .then(function(response) {
-          if (response.status === 200) {
-            FlashService.Success('Registration successful', true);
-            $location.path('home.html#/login');
-          } else {
-            FlashService.Error(response.message);
-            vm.dataLoading = false;
-          }
-        });
+      UserService.Create(vm.user, function(response) {
+        if (response.status === 200) {
+          FlashService.Success('Registration successful', true);
+          $location.path('login');
+        } else {
+          FlashService.ShowErrorFlashMessage(response, 'Registration failed');
+          vm.dataLoading = false;
+        }
+      });
     }
   }
-
 })();

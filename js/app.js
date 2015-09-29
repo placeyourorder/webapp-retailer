@@ -4,11 +4,6 @@
  * should be included in all pages. It controls some layout
  * options and implements exclusive AdminLTE plugins.
  *
- * @Author  Almsaeed Studio
- * @Support <http://www.almsaeedstudio.com>
- * @Email   <support@almsaeedstudio.com>
- * @version 2.3.0
- * @license MIT <http://opensource.org/licenses/MIT>
  */
 
 //Make sure jQuery has been loaded before app.js
@@ -137,7 +132,7 @@ $.AdminLTE.options = {
  * functions and plugins as specified by the
  * options above.
  */
-$(function () {
+$(function() {
   "use strict";
 
   //Fix for IE page transitions
@@ -146,8 +141,8 @@ $(function () {
   //Extend options if external options exist
   if (typeof AdminLTEOptions !== "undefined") {
     $.extend(true,
-            $.AdminLTE.options,
-            AdminLTEOptions);
+      $.AdminLTE.options,
+      AdminLTEOptions);
   }
 
   //Easy access to options
@@ -200,7 +195,7 @@ $(function () {
 
   //Activate direct chat widget
   if (o.directChat.enable) {
-    $(document).on('click', o.directChat.contactToggleSelector, function () {
+    $(document).on('click', o.directChat.contactToggleSelector, function() {
       var box = $(this).parents('.direct-chat').first();
       box.toggleClass('direct-chat-contacts-open');
     });
@@ -210,9 +205,9 @@ $(function () {
    * INITIALIZE BUTTON TOGGLE
    * ------------------------
    */
-  $('.btn-group[data-toggle="btn-toggle"]').each(function () {
+  $('.btn-group[data-toggle="btn-toggle"]').each(function() {
     var group = $(this);
-    $(this).find(".btn").on('click', function (e) {
+    $(this).find(".btn").on('click', function(e) {
       group.find(".btn.active").removeClass("active");
       $(this).addClass("active");
       e.preventDefault();
@@ -238,16 +233,16 @@ function _init() {
    *        $.AdminLTE.layout.fixSidebar()
    */
   $.AdminLTE.layout = {
-    activate: function () {
+    activate: function() {
       var _this = this;
       _this.fix();
       _this.fixSidebar();
-      $(window, ".wrapper").resize(function () {
+      $(window, ".wrapper").resize(function() {
         _this.fix();
         _this.fixSidebar();
       });
     },
-    fix: function () {
+    fix: function() {
       //Get window height and the wrapper height
       var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
       var window_height = $(window).height();
@@ -275,11 +270,13 @@ function _init() {
 
       }
     },
-    fixSidebar: function () {
+    fixSidebar: function() {
       //Make sure the body tag has the .fixed class
       if (!$("body").hasClass("fixed")) {
         if (typeof $.fn.slimScroll != 'undefined') {
-          $(".sidebar").slimScroll({destroy: true}).height("auto");
+          $(".sidebar").slimScroll({
+            destroy: true
+          }).height("auto");
         }
         return;
       } else if (typeof $.fn.slimScroll == 'undefined' && window.console) {
@@ -289,7 +286,9 @@ function _init() {
       if ($.AdminLTE.options.sidebarSlimScroll) {
         if (typeof $.fn.slimScroll != 'undefined') {
           //Destroy if it exists
-          $(".sidebar").slimScroll({destroy: true}).height("auto");
+          $(".sidebar").slimScroll({
+            destroy: true
+          }).height("auto");
           //Add slimscroll
           $(".sidebar").slimscroll({
             height: ($(window).height() - $(".main-header").height()) + "px",
@@ -309,12 +308,12 @@ function _init() {
    * @usage: $.AdminLTE.pushMenu("[data-toggle='offcanvas']")
    */
   $.AdminLTE.pushMenu = {
-    activate: function (toggleBtn) {
+    activate: function(toggleBtn) {
       //Get the screen sizes
       var screenSizes = $.AdminLTE.options.screenSizes;
 
       //Enable sidebar toggle
-      $(toggleBtn).on('click', function (e) {
+      $(toggleBtn).on('click', function(e) {
         e.preventDefault();
 
         //Enable sidebar push menu
@@ -335,7 +334,7 @@ function _init() {
         }
       });
 
-      $(".content-wrapper").click(function () {
+      $(".content-wrapper").click(function() {
         //Enable hide menu when clicking on the content-wrapper on small screens
         if ($(window).width() <= (screenSizes.sm - 1) && $("body").hasClass("sidebar-open")) {
           $("body").removeClass('sidebar-open');
@@ -343,34 +342,28 @@ function _init() {
       });
 
       //Enable expand on hover for sidebar mini
-      if ($.AdminLTE.options.sidebarExpandOnHover
-              || ($('body').hasClass('fixed')
-                      && $('body').hasClass('sidebar-mini'))) {
+      if ($.AdminLTE.options.sidebarExpandOnHover || ($('body').hasClass('fixed') && $('body').hasClass('sidebar-mini'))) {
         this.expandOnHover();
       }
     },
-    expandOnHover: function () {
+    expandOnHover: function() {
       var _this = this;
       var screenWidth = $.AdminLTE.options.screenSizes.sm - 1;
       //Expand sidebar on hover
-      $('.main-sidebar').hover(function () {
-        if ($('body').hasClass('sidebar-mini')
-                && $("body").hasClass('sidebar-collapse')
-                && $(window).width() > screenWidth) {
+      $('.main-sidebar').hover(function() {
+        if ($('body').hasClass('sidebar-mini') && $("body").hasClass('sidebar-collapse') && $(window).width() > screenWidth) {
           _this.expand();
         }
-      }, function () {
-        if ($('body').hasClass('sidebar-mini')
-                && $('body').hasClass('sidebar-expanded-on-hover')
-                && $(window).width() > screenWidth) {
+      }, function() {
+        if ($('body').hasClass('sidebar-mini') && $('body').hasClass('sidebar-expanded-on-hover') && $(window).width() > screenWidth) {
           _this.collapse();
         }
       });
     },
-    expand: function () {
+    expand: function() {
       $("body").removeClass('sidebar-collapse').addClass('sidebar-expanded-on-hover');
     },
-    collapse: function () {
+    collapse: function() {
       if ($('body').hasClass('sidebar-expanded-on-hover')) {
         $('body').removeClass('sidebar-expanded-on-hover').addClass('sidebar-collapse');
       }
@@ -385,10 +378,10 @@ function _init() {
    * @type Function
    * @Usage: $.AdminLTE.tree('.sidebar')
    */
-  $.AdminLTE.tree = function (menu) {
+  $.AdminLTE.tree = function(menu) {
     var _this = this;
     var animationSpeed = $.AdminLTE.options.animationSpeed;
-    $(document).on('click', menu + ' li a', function (e) {
+    $(document).on('click', menu + ' li a', function(e) {
       //Get the clicked link and the next element
       var $this = $(this);
       var checkElement = $this.next();
@@ -396,7 +389,7 @@ function _init() {
       //Check if the next element is a menu and is visible
       if ((checkElement.is('.treeview-menu')) && (checkElement.is(':visible'))) {
         //Close the menu
-        checkElement.slideUp(animationSpeed, function () {
+        checkElement.slideUp(animationSpeed, function() {
           checkElement.removeClass('menu-open');
           //Fix the layout in case the sidebar stretches over the height of the window
           //_this.layout.fix();
@@ -415,7 +408,7 @@ function _init() {
         var parent_li = $this.parent("li");
 
         //Open the target menu and add the menu-open class
-        checkElement.slideDown(animationSpeed, function () {
+        checkElement.slideDown(animationSpeed, function() {
           //Add the class active to the parent li
           checkElement.addClass('menu-open');
           parent.find('li.active').removeClass('active');
@@ -440,7 +433,7 @@ function _init() {
    */
   $.AdminLTE.controlSidebar = {
     //instantiate the object
-    activate: function () {
+    activate: function() {
       //Get the object
       var _this = this;
       //Update options
@@ -451,11 +444,10 @@ function _init() {
       var btn = $(o.toggleBtnSelector);
 
       //Listen to the click event
-      btn.on('click', function (e) {
+      btn.on('click', function(e) {
         e.preventDefault();
         //If the sidebar is not open
-        if (!sidebar.hasClass('control-sidebar-open')
-                && !$('body').hasClass('control-sidebar-open')) {
+        if (!sidebar.hasClass('control-sidebar-open') && !$('body').hasClass('control-sidebar-open')) {
           //Open the sidebar
           _this.open(sidebar, o.slide);
         } else {
@@ -478,7 +470,7 @@ function _init() {
       }
     },
     //Open the control sidebar
-    open: function (sidebar, slide) {
+    open: function(sidebar, slide) {
       //Slide over content
       if (slide) {
         sidebar.addClass('control-sidebar-open');
@@ -489,19 +481,19 @@ function _init() {
       }
     },
     //Close the control sidebar
-    close: function (sidebar, slide) {
+    close: function(sidebar, slide) {
       if (slide) {
         sidebar.removeClass('control-sidebar-open');
       } else {
         $('body').removeClass('control-sidebar-open');
       }
     },
-    _fix: function (sidebar) {
+    _fix: function(sidebar) {
       var _this = this;
       if ($("body").hasClass('layout-boxed')) {
         sidebar.css('position', 'absolute');
         sidebar.height($(".wrapper").height());
-        $(window).resize(function () {
+        $(window).resize(function() {
           _this._fix(sidebar);
         });
       } else {
@@ -511,7 +503,7 @@ function _init() {
         });
       }
     },
-    _fixForFixed: function (sidebar) {
+    _fixForFixed: function(sidebar) {
       sidebar.css({
         'position': 'fixed',
         'max-height': '100%',
@@ -519,7 +511,7 @@ function _init() {
         'padding-bottom': '50px'
       });
     },
-    _fixForContent: function (sidebar) {
+    _fixForContent: function(sidebar) {
       $(".content-wrapper, .right-side").css('min-height', sidebar.height());
     }
   };
@@ -537,24 +529,24 @@ function _init() {
     selectors: $.AdminLTE.options.boxWidgetOptions.boxWidgetSelectors,
     icons: $.AdminLTE.options.boxWidgetOptions.boxWidgetIcons,
     animationSpeed: $.AdminLTE.options.animationSpeed,
-    activate: function (_box) {
+    activate: function(_box) {
       var _this = this;
       if (!_box) {
         _box = document; // activate all boxes per default
       }
       //Listen for collapse event triggers
-      $(_box).on('click', _this.selectors.collapse, function (e) {
+      $(_box).on('click', _this.selectors.collapse, function(e) {
         e.preventDefault();
         _this.collapse($(this));
       });
 
       //Listen for remove event triggers
-      $(_box).on('click', _this.selectors.remove, function (e) {
+      $(_box).on('click', _this.selectors.remove, function(e) {
         e.preventDefault();
         _this.remove($(this));
       });
     },
-    collapse: function (element) {
+    collapse: function(element) {
       var _this = this;
       //Find the box parent
       var box = element.parents(".box").first();
@@ -563,24 +555,24 @@ function _init() {
       if (!box.hasClass("collapsed-box")) {
         //Convert minus into plus
         element.children(":first")
-                .removeClass(_this.icons.collapse)
-                .addClass(_this.icons.open);
+          .removeClass(_this.icons.collapse)
+          .addClass(_this.icons.open);
         //Hide the content
-        box_content.slideUp(_this.animationSpeed, function () {
+        box_content.slideUp(_this.animationSpeed, function() {
           box.addClass("collapsed-box");
         });
       } else {
         //Convert plus into minus
         element.children(":first")
-                .removeClass(_this.icons.open)
-                .addClass(_this.icons.collapse);
+          .removeClass(_this.icons.open)
+          .addClass(_this.icons.collapse);
         //Show the content
-        box_content.slideDown(_this.animationSpeed, function () {
+        box_content.slideDown(_this.animationSpeed, function() {
           box.removeClass("collapsed-box");
         });
       }
     },
-    remove: function (element) {
+    remove: function(element) {
       //Find the box parent
       var box = element.parents(".box").first();
       box.slideUp(this.animationSpeed);
@@ -603,11 +595,11 @@ function _init() {
  * @type plugin
  * @usage $("#box-widget").boxRefresh( options );
  */
-(function ($) {
+(function($) {
 
   "use strict";
 
-  $.fn.boxRefresh = function (options) {
+  $.fn.boxRefresh = function(options) {
 
     // Render options
     var settings = $.extend({
@@ -616,19 +608,19 @@ function _init() {
       //File source to be loaded (e.g: ajax/src.php)
       source: "",
       //Callbacks
-      onLoadStart: function (box) {
+      onLoadStart: function(box) {
         return box;
       }, //Right after the button has been clicked
-      onLoadDone: function (box) {
-        return box;
-      } //When the source has been loaded
+      onLoadDone: function(box) {
+          return box;
+        } //When the source has been loaded
 
     }, options);
 
     //The overlay
     var overlay = $('<div class="overlay"><div class="fa fa-refresh fa-spin"></div></div>');
 
-    return this.each(function () {
+    return this.each(function() {
       //if a source is specified
       if (settings.source === "") {
         if (window.console) {
@@ -642,13 +634,13 @@ function _init() {
       var rBtn = box.find(settings.trigger).first();
 
       //On trigger click
-      rBtn.on('click', function (e) {
+      rBtn.on('click', function(e) {
         e.preventDefault();
         //Add loading overlay
         start(box);
 
         //Perform ajax call
-        box.find(".box-body").load(settings.source, function () {
+        box.find(".box-body").load(settings.source, function() {
           done(box);
         });
       });
@@ -681,11 +673,11 @@ function _init() {
  * @type plugin
  * @usage $("#box-widget").activateBox();
  */
-(function ($) {
+(function($) {
 
   'use strict';
 
-  $.fn.activateBox = function () {
+  $.fn.activateBox = function() {
     $.AdminLTE.boxWidget.activate(this);
   };
 
@@ -699,39 +691,39 @@ function _init() {
  * @type plugin
  * @usage $("#todo-widget").todolist( options );
  */
-(function ($) {
+(function($) {
 
   'use strict';
 
-  $.fn.todolist = function (options) {
+  $.fn.todolist = function(options) {
     // Render options
     var settings = $.extend({
       //When the user checks the input
-      onCheck: function (ele) {
+      onCheck: function(ele) {
         return ele;
       },
       //When the user unchecks the input
-      onUncheck: function (ele) {
+      onUncheck: function(ele) {
         return ele;
       }
     }, options);
 
-    return this.each(function () {
+    return this.each(function() {
 
       if (typeof $.fn.iCheck != 'undefined') {
-        $('input', this).on('ifChecked', function () {
+        $('input', this).on('ifChecked', function() {
           var ele = $(this).parents("li").first();
           ele.toggleClass("done");
           settings.onCheck.call(ele);
         });
 
-        $('input', this).on('ifUnchecked', function () {
+        $('input', this).on('ifUnchecked', function() {
           var ele = $(this).parents("li").first();
           ele.toggleClass("done");
           settings.onUncheck.call(ele);
         });
       } else {
-        $('input', this).on('change', function () {
+        $('input', this).on('change', function() {
           var ele = $(this).parents("li").first();
           ele.toggleClass("done");
           if ($('input', ele).is(":checked")) {
@@ -745,76 +737,59 @@ function _init() {
   };
 }(jQuery));
 
-app = angular.module('app', ['ngResource', 'ngCookies', 'ui.router', 'ngRoute', 'ngTouch', 'ngToast', 'ui.grid', 'ui.grid.expandable', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.pagination', 'ui.grid.edit', 'ui.bootstrap', 'schemaForm']);
+app = angular.module('app', ['ngResource', 'ngCookies', 'ui.router', 'ngRoute', 'ngTouch', 'ngToast', 'ui.grid', 'ui.grid.expandable', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.pagination', 'ui.grid.edit', 'ui.bootstrap', 'schemaForm', 'ngLoadingSpinner']);
 
-(function() {
+app.run(['$rootScope', '$cookieStore', '$http', '$state', 'loginModal', function($rootScope, $cookieStore, $http, $state, loginModal) {
+  // keep user logged in after page refresh
+  $rootScope.globals = $cookieStore.get('globals') || {};
+  console.log('$rootScope.globals');
+  console.log($rootScope.globals);
 
-  run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-
-  function run($rootScope, $location, $cookieStore, $http) {
-    // keep user logged in after page refresh
-    $rootScope.globals = $cookieStore.get('globals') || {};
-    if ($rootScope.globals.currentUser) {
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-    }
-
-    $rootScope.$on('$locationChangeStart', function(event, next, current) {
-      // redirect to login page if not logged in and trying to access a restricted page
-      // var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
-      // var loggedIn = $rootScope.globals.currentUser;
-      // if (restrictedPage && !loggedIn) {
-      //   $location.path('/login');
-      // }
-    });
-  }
-
-})();
-
-app.run(function ($rootScope, $state, loginModal) {
-
-  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
-
-    if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+    var loggedIn = $rootScope.globals.currentUser;
+    console.log(requireLogin, loggedIn);
+    if (requireLogin && !loggedIn) {
       event.preventDefault();
 
       loginModal()
-        .then(function () {
+        .then(function() {
           return $state.go(toState.name, toParams);
         })
-        .catch(function () {
+        .catch(function() {
           return $state.go('/');
         });
     }
   });
-});
+}]);
 
-app.config(function ($httpProvider) {
+app.config(function($httpProvider) {
 
-  $httpProvider.interceptors.push(function ($timeout, $q, $injector) {
+  $httpProvider.interceptors.push(function($timeout, $q, $injector) {
     var loginModal, $http, $state;
 
     // this trick must be done so that we don't receive
     // `Uncaught Error: [$injector:cdep] Circular dependency found`
-    $timeout(function () {
+    $timeout(function() {
       loginModal = $injector.get('loginModal');
       $http = $injector.get('$http');
       $state = $injector.get('$state');
     });
 
     return {
-      responseError: function (rejection) {
+      responseError: function(rejection) {
         if (rejection.status !== 401) {
-          return rejection;
+          return $q.reject(rejection);
+          //return rejection;
         }
 
         var deferred = $q.defer();
 
         loginModal()
-          .then(function () {
-            deferred.resolve( $http(rejection.config) );
+          .then(function() {
+            deferred.resolve($http(rejection.config));
           })
-          .catch(function () {
+          .catch(function() {
             $state.go('/');
             deferred.reject(rejection);
           });

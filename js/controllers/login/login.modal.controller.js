@@ -2,7 +2,7 @@
  * @Author: renjithks
  * @Date:   2015-09-27 01:03:55
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-27 02:16:54
+ * @Last Modified time: 2015-09-29 23:20:52
  */
 
 (function() {
@@ -19,6 +19,8 @@
 
     this.submit = function(email, password) {
       AuthenticationService.Login(email, password, function(response) {
+        AuthenticationService.SetCredentials(response.data);
+        AuthenticationService.SetStoreContext(function() {});
         $scope.$close(response);
       })
     };

@@ -31,9 +31,13 @@
       return $http.get(config.baseUrl + '/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
     }
 
-    function Create(user) {
+    function Create(user, callback) {
       console.log(config());
-      return $http.post(config().baseUrl + '/users/register', user).then(handleSuccess, handleError('Error creating user'));
+      return $http.post(config().baseUrl + '/users/register', user).then(function(response) {
+        callback(response);
+      }).catch(function(response) {
+        callback(response);
+      });
     }
 
     function Update(user) {
@@ -51,12 +55,7 @@
     }
 
     function handleError(error) {
-      return function() {
-        return {
-          success: false,
-          message: error
-        };
-      };
+      return error
     }
   }
 

@@ -2,9 +2,9 @@
  * @Author: renjithks
  * @Date:   2015-09-13 01:51:39
  * @Last Modified by:   renjithks
- * @Last Modified time: 2015-09-27 00:38:43
+ * @Last Modified time: 2015-09-30 01:32:49
  */
-var storeId = '55fd6801a89cbdea702a1024';
+//var storeId = $rootScope.globals.storeId;
 var searchModalInstance;
 
 app.constant('ItemSchema', {
@@ -98,10 +98,12 @@ app.constant('ItemSearchSchema', {
 })
 
 
-RowEditCtrl.$inject = ['$scope', '$modalInstance', 'ItemSchema', 'grid', 'row', 'itemsFactory', 'itemDeleteFactory', 'ngToast', 'confirmModalService'];
+RowEditCtrl.$inject = ['$rootScope', '$scope', '$modalInstance', 'ItemSchema', 'grid', 'row', 'itemsFactory', 'ngToast', 'confirmModalService', 'FlashService'];
 
-function RowEditCtrl($scope, $modalInstance, ItemSchema, grid, row, itemsFactory, itemDeleteFactory, ngToast, confirmModalService) {
+function RowEditCtrl($rootScope, $scope, $modalInstance, ItemSchema, grid, row, itemsFactory, ngToast, confirmModalService, FlashService) {
 
+  console.log(ItemSchema);
+  console.log(row);
   $scope.itemschema = ItemSchema;
   $scope.itemeditentity = angular.copy(row.entity);
   $scope.itemeditform = [
@@ -147,25 +149,8 @@ function RowEditCtrl($scope, $modalInstance, ItemSchema, grid, row, itemsFactory
   }
 
   function saveError(error) {
-    console.log(error);
     var msg = 'Error updating Item ' + $scope.itemeditentity.name;
-    console.log(error.data);
-
-    if (Object.prototype.toString.call(error.data) === '[object Array]') {
-      error.data.forEach(function(item, index) {
-        msg = item.schema + ' ' + item.message;
-        var myToastMsg = ngToast.danger({
-          content: msg,
-          dismissButton: true
-        });
-      });
-    } else {
-      msg = error.data || msg;
-      var myToastMsg = ngToast.danger({
-        content: msg,
-        dismissButton: true
-      });
-    }
+    FlashService.ShowErrorToastMessage(error, msg);
   }
 
   function deleteSuccess() {
@@ -182,9 +167,7 @@ function RowEditCtrl($scope, $modalInstance, ItemSchema, grid, row, itemsFactory
 
   function save() {
     // Copy row values over
-    itemsFactory.update({
-      storeId: storeId
-    }, $scope.itemeditentity, saveSuccess, saveError);
+    itemsFactory.update($scope.itemeditentity, saveSuccess, saveError);
   }
 
   function deleteItem() {
@@ -197,15 +180,12 @@ function RowEditCtrl($scope, $modalInstance, ItemSchema, grid, row, itemsFactory
     };
 
     confirmModalService.showModal({}, modalOptions).then(function(result) {
-      itemDeleteFactory.delete({
-        storeId: storeId,
-        itemId: $scope.itemeditentity._id
-      }, $scope.itemeditentity, deleteSuccess, saveError);
+      itemsFactory.remove($scope.itemeditentity, deleteSuccess, saveError);
     });
   }
 };
 
-app.controller("itemsStubController", ['AuthenticationService', '$scope', 'itemsStubFactory', 'RowEditor', function(AuthenticationService, $scope, itemsStubFactory, RowEditor, $location) {
+app.controller("itemsStubController", ['$rootScope', 'AuthenticationService', '$scope', 'itemsStubFactory', 'RowEditor', function($rootScope, AuthenticationService, $scope, itemsStubFactory, RowEditor, $location) {
   AuthenticationService.isAuthenticated();
   $scope.editRow = RowEditor.editRow;
   var paginationOptions = {
@@ -221,12 +201,13 @@ app.controller("itemsStubController", ['AuthenticationService', '$scope', 'items
     expandableRowScope: {
       subGridVariable: 'subGridScopeVariable'
     },
+    rowHeight: 37,
     enablePaginationControls: true,
     enableFiltering: true,
     paginationPageSizes: [50, 100, 200],
     paginationPageSize: paginationOptions.pageSize,
     useExternalPagination: true,
-    minRowsToShow: 15,
+    minRowsToShow: 13,
     onRegisterApi: function(gridApi) {
       $scope.gridApi = gridApi;
       gridApi.pagination.on.paginationChanged($scope, function(newPage, pageSize) {
@@ -286,7 +267,7 @@ app.controller("itemsStubController", ['AuthenticationService', '$scope', 'items
 
   var getPage = function() {
     itemsStubFactory.search({
-      storeId: storeId,
+      storeId: $rootScope.globals.storeId,
       page: paginationOptions.pageNumber,
       limit: paginationOptions.pageSize
     }, $scope.searchParams, successPostCallback, errorCallback);
@@ -362,7 +343,7 @@ app.controller('itemsSearchModalController', ['$rootScope', '$scope', '$modalIns
   };
 }]);
 
-app.controller('addItemModalInstanceCtrl', ['$scope', '$modalInstance', 'ItemSchema', 'itemsFactory', 'ngToast', function($scope, $modalInstance, ItemSchema, itemsFactory, ngToast) {
+app.controller('addItemModalInstanceCtrl', ['$rootScope','$scope', '$modalInstance', 'FlashService', 'ItemSchema', 'itemsFactory', 'ngToast', function($rootScope, $scope, $modalInstance, FlashService, ItemSchema, itemsFactory, ngToast) {
 
   $scope.schema = ItemSchema;
   $scope.entity = {};
@@ -410,32 +391,14 @@ app.controller('addItemModalInstanceCtrl', ['$scope', '$modalInstance', 'ItemSch
   function saveError(error) {
     console.log(error);
     var msg = 'Error updating Item ' + $scope.entity.name;
-    console.log(error.data);
-
-    if (Object.prototype.toString.call(error.data) === '[object Array]') {
-      error.data.forEach(function(item, index) {
-        msg = item.schema + ' ' + item.message;
-        var myToastMsg = ngToast.danger({
-          content: msg,
-          dismissButton: true
-        });
-      });
-    } else {
-      msg = error.data || msg;
-      var myToastMsg = ngToast.danger({
-        content: msg,
-        dismissButton: true
-      });
-    }
+    FlashService.ShowErrorToastMessage(error, msg);
   }
 
   function save() {
     $scope.$broadcast('schemaFormValidate');
     if ($scope.form) {
-      $scope.entity.store_id = storeId;
-      itemsFactory.save({
-        storeId: storeId
-      }, $scope.entity, saveSuccess, saveError);
+      $scope.entity.store_id = $rootScope.globals.storeId;
+      itemsFactory.create($scope.entity, saveSuccess, saveError);
     }
   }
 
