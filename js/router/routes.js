@@ -1,8 +1,8 @@
 /* 
  * @Author: renjithks
  * @Date:   2015-09-13 01:58:28
- * @Last Modified by:   Renjith Sasidharan
- * @Last Modified time: 2015-09-28 00:55:44
+ * @Last Modified by:   renjithks
+ * @Last Modified time: 2015-10-01 02:14:10
  */
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -30,6 +30,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/items",
       templateUrl: "tmpl/items.html",
       controller: 'itemsStubController',
+      data: {
+        requireLogin: true
+      }
+    }).state('orders', {
+      url: "/orders",
+      templateUrl: "tmpl/order/order.table.html",
+      controller: 'orderController',
+      controllerAs: 'orders',
       data: {
         requireLogin: true
       }

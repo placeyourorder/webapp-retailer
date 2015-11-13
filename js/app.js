@@ -737,7 +737,7 @@ function _init() {
   };
 }(jQuery));
 
-app = angular.module('app', ['ngResource', 'ngCookies', 'ui.router', 'ngRoute', 'ngTouch', 'ngToast', 'ui.grid', 'ui.grid.expandable', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.pagination', 'ui.grid.edit', 'ui.bootstrap', 'schemaForm', 'ngLoadingSpinner']);
+app = angular.module('app', ['ngResource', 'ngCookies', 'ui.router', 'ngRoute', 'ngTouch', 'ngToast', 'ui.grid', 'ui.grid.expandable', 'ui.grid.selection', 'ui.grid.pinning', 'ui.grid.pagination', 'ui.grid.edit', 'ui.bootstrap', 'schemaForm', 'ngLoadingSpinner', 'ngTable', 'angularMoment']);
 
 app.run(['$rootScope', '$cookieStore', '$http', '$state', 'loginModal', function($rootScope, $cookieStore, $http, $state, loginModal) {
   // keep user logged in after page refresh

@@ -2,5 +2,14 @@
 * @Author: renjithks
 * @Date:   2015-09-14 01:12:31
 * @Last Modified by:   renjithks
-* @Last Modified time: 2015-09-22 01:56:53
+* @Last Modified time: 2015-10-02 03:59:16
 */
+
+.order-dialog .modal-dialog {
+  width: 90%;
+  min-width: 800px;
+}
+
+.top-buffer {
+  margin-top: 20px;
+}

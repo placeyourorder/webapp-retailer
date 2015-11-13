@@ -1,0 +1,14 @@
+<div loading-container="orders.tableParams.settings().$loading" ng-controller="orderController as order">
+  <table ng-table="orders.tableParams" class="table table-condensed table-bordered table-striped table-hover">
+    <tr ng-repeat="row in $data">
+      <!-- <td><i class="fa fa-eye"></i></td> -->
+      <td><button class="btn btn-default btn-sm" ng-click="order.view(row, rowForm)"><span class="fa fa-eye"></span></button></td>
+      <td data-title="'Created'" sortable="'created_at'">{{row.created_at | date:dateFormat}}"</td>
+      <td data-title="'Phone'" filter="{phone: 'number'}">{{row.phone}}</td>
+      <td data-title="'Status'" class="text-center" filter="{status: 'text'}">
+        <span ng-class="{'label label-success': row.status == 'CREATED'}">{{row.status}}</span>
+      </td>
+      <td data-title="'Total'" class="fa fa-inr pull-right"><em>{{row.total_price}}</em></td>
+    </tr>
+  </table>
+</div>

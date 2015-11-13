@@ -45,7 +45,7 @@
               // TODO: Use base url
               $window.location.href = baseUrl + '/starter.html';
           });
-        }
+        } else
         //If login failed
         {
           handleLoginFailure(response);

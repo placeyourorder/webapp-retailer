@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h3>Order Details</h3>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <span class="label label-default">Created on</span>
+        <span>{{modalOrder.created_at | date:dateFormat}}</span>
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Status</span>
+        <span>{{modalOrder.status}}</span>
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Label 1</span>
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Total</span>
+        <em class="fa fa-inr">{{modalOrder.total_price}}</em>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-md-3">
+        <span class="label label-default">Label 1</span>
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Label 2</span>
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Label 3</span>
+      </div>
+      <div class="col-md-3">
+        <span class="label label-default">Label 3</span>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-md-12">
+        <table class="table table-striped table-hover">
+          <tr>
+            <th>Name</th>
+            <th>Variant</th>
+            <th>Price</th>
+            <th>Qtuantity</th>
+            <th>Status</th>
+            <th><span ng-class="pull-right">Total</span></th>
+          </tr>
+          <tr ng-repeat="items in modalOrder.line_items">
+            <td>{{items.name}}</td>
+            <td>{{items.variant.quantity}} {{items.variant.uom}}</td>
+            <td class="fa fa-inr"><em>{{items.variant.price}}</em></td>
+            <td>{{items.quantity}}</td>
+            <td><span ng-class="{'label label-success': items.status == 'CREATED'}">{{items.status}}</span></td>
+            <td class="fa fa-inr"><em>{{items.total_price}}</em></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn" data-ng-click="modalOrder.close()">Close</button>
+</div>
